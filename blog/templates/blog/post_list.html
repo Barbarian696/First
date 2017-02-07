@@ -1,14 +1,13 @@
-<html>
-    <head>
-        <title>Own Blog</title>
-    </head>
-    <body>
-    <div>
-        <center><h1>Django Girls Blog</h1></center>
+{% extends 'blog/base.html' %}
+{% block content %}
+    {% for Post in posts %}
+    <div class="post">
+        <div class="date">
+        <p>Published:{{post.pdate}}</p>
+        </div>
+        <h1><a href="{% url 'post_detail' pk=post.pk %}"> {{ post.title }}</a></h1>
+        <p>{{ post.text | linebreaksbr }}</p>
+        <a href="{% url 'post_approve' pk=post.pk %}">Comments: {{ post.approved_comments.count }}</a>
     </div>
-
-    <div>
-        <p>Published Now!!</p>
-    </div>
-    </body>
-</html>
+    {% endfor %}
+{% endblock %}
